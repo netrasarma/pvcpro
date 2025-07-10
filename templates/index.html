@@ -796,7 +796,9 @@
             }
             
             // ** THIS IS THE CORRECTED LINE **
-            const cashfree = new Cashfree();
+            const cashfree = new Cashfree({
+                mode: "production" // <-- ADD THIS LINE BACK
+            });
 
             const checkoutOptions = {
                 paymentSessionId: paymentSessionId
