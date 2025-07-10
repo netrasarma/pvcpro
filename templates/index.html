@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="md:w-1/2 flex justify-center">
-                <img src="preview.png" alt="PVC Pro software interface showing document conversion to PVC card" class="rounded-xl shadow-2xl border-4 border-white max-w-full">
+                <img src="{{ url_for('static', filename='preview.png') }}" alt="PVC Pro software interface showing document conversion to PVC card" class="rounded-xl shadow-2xl border-4 border-white max-w-full">
             </div>
         </div>
     </section>
@@ -192,7 +192,7 @@
             </div>
             
             <div class="mt-16 flex justify-center">
-                <img src="doc.png" alt="Examples of supported government ID cards" class="rounded-lg shadow-lg border max-w-full">
+                <img src="{{ url_for('static', filename='doc.png') }}" alt="Examples of supported government ID cards" class="rounded-lg shadow-lg border max-w-full">
             </div>
         </div>
     </section>
@@ -266,14 +266,14 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="pricing-card bg-white border-2 border-blue-600 rounded-xl p-8 shadow-lg relative">
+                <div class="pricing-card bg-white border-2 border-blue-600 rounded-xl p-8 shadow-lg relative flex flex-col">
                     <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-bl-lg rounded-tr-lg">MOST POPULAR</div>
                     <div class="text-center mb-6">
                         <h3 class="text-xl font-semibold mb-2">Annual Subscription</h3>
                         <div class="text-4xl font-bold mb-2">₹699<span class="text-lg font-normal text-gray-500">/year</span></div>
                         <p class="text-gray-600">Unlimited conversions for 12 months</p>
                     </div>
-                    <ul class="space-y-3 mb-8 pl-5">
+                    <ul class="space-y-3 mb-8 pl-5 flex-grow">
                         <li class="flex items-baseline">
                             <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -286,71 +286,34 @@
                             </svg>
                             All supported document types
                         </li>
-                        <li class="flex items-baseline">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            PDF to JPG conversion
-                        </li>
-                        <li class="flex items-baseline">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            Batch processing
-                        </li>
-                        <li class="flex items-baseline">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            Priority email support
-                        </li>
                     </ul>
-                    <button onclick="showPaymentForm('Annual Subscription - ₹699/year', 699)" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold shadow-md">
+                    <button onclick="showPaymentForm('Annual Subscription - ₹699/year', 699)" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold shadow-md mt-auto">
                         Get Annual Plan
                     </button>
                 </div>
                 
-                <div class="pricing-card bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
+                <div class="pricing-card bg-white border border-gray-200 rounded-xl p-8 shadow-lg flex flex-col">
                     <div class="text-center mb-6">
                         <h3 class="text-xl font-semibold mb-2">Pay Per File</h3>
                         <div class="text-4xl font-bold mb-2">₹1<span class="text-lg font-normal text-gray-500">/file</span></div>
                         <p class="text-gray-600">Pay only when you need it</p>
                     </div>
-                    <ul class="space-y-3 mb-8 pl-5">
+                    <ul class="space-y-3 mb-8 pl-5 flex-grow">
                         <li class="flex items-baseline">
                             <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                             Pay only for converted files
                         </li>
-                        <li class="flex items-baseline">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            All supported document types
-                        </li>
-                        <li class="flex items-baseline">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            PDF to JPG conversion
-                        </li>
-                        <li class="flex items-baseline">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            Minimum purchase of 10 files
-                        </li>
                     </ul>
-                    <button onclick="showPaymentForm('Pay Per File - ₹1/file (Min 50 files)', 50)" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-semibold shadow-md">
-                        Pay As You Go (Min 50 files)
-                    </button>
+                    <div class="mt-auto">
+                        <label for="file-quantity" class="block text-sm font-medium text-gray-700 mb-2">Number of Files (Min 1):</label>
+                        <input type="number" id="file-quantity" value="1" min="1" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+                        <button onclick="handlePayPerFile()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-semibold shadow-md">
+                            Buy Credits
+                        </button>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="text-center text-gray-500 mt-8">
-                <p>Both options include all features - choose based on your expected usage</p>
-                <p class="mt-2 text-sm">All prices are in Indian Rupees (₹). Taxes may apply.</p>
             </div>
         </div>
     </section>
@@ -620,7 +583,7 @@
                 </button>
             </form>
             
-            <p class="text-xs text-gray-500 mt-4">Your payment is secure and encrypted. By purchasing, you agree to our <a href="#" class="text-blue-500 hover:underline">Terms</a> and <a href="#" class="text-blue-500 hover:underline">Privacy Policy</a>.</p>
+            <p class="text-xs text-gray-500 mt-4">Your payment is secure and encrypted. By purchasing, you agree to our <a href="{{ url_for('static', filename='terms.html') }}" class="text-blue-500 hover:underline">Terms</a> and <a href="{{ url_for('static', filename='privacy.html') }}" class="text-blue-500 hover:underline">Privacy Policy</a>.</p>
         </div>
     </div>
 
@@ -666,10 +629,10 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Legal</h4>
                     <ul class="space-y-2">
-                        <li><a href="terms.html" class="text-gray-300 hover:text-white">Terms of Service</a></li>
-                        <li><a href="privacy.html" class="text-gray-300 hover:text-white">Privacy Policy</a></li>
-                        <li><a href="refund.html" class="text-gray-300 hover:text-white">Refund Policy</a></li>
-                        <li><a href="cookie.html" class="text-gray-300 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="{{ url_for('static', filename='terms.html') }}" class="text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="{{ url_for('static', filename='privacy.html') }}" class="text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="{{ url_for('static', filename='refund.html') }}" class="text-gray-300 hover:text-white">Refund Policy</a></li>
+                        <li><a href="{{ url_for('static', filename='cookie.html') }}" class="text-gray-300 hover:text-white">Cookie Policy</a></li>
                     </ul>
                 </div>
                 
@@ -741,6 +704,24 @@
             document.getElementById('paymentModal').classList.add('hidden');
         }
 
+        function handlePayPerFile() {
+          const quantityInput = document.getElementById('file-quantity');
+          const quantity = parseInt(quantityInput.value, 10);
+          const pricePerFile = 1;
+          const minQuantity = 1;
+
+          if (isNaN(quantity) || quantity < minQuantity) {
+            alert('Minimum purchase is ' + minQuantity + ' file.');
+            quantityInput.value = minQuantity;
+            return;
+          }
+
+          const totalAmount = quantity * pricePerFile;
+          const planName = quantity + ' File Credits at ₹' + pricePerFile + '/file';
+
+          showPaymentForm(planName, totalAmount);
+        }
+
         // Cashfree payment integration
         document.getElementById('cf-pay-button').addEventListener('click', async function () {
             const name = document.getElementById('payment-name').value.trim();
@@ -756,7 +737,7 @@
 
             async function fetchPaymentSessionId() {
                 try {
-                    const backendUrl = 'https://backend-251977653326.asia-south1.run.app/create_order'; 
+                    const backendUrl = '/create_order'; 
                     
                     const response = await fetch(backendUrl, {
                         method: 'POST',
@@ -768,8 +749,6 @@
                             customer_email: email,
                             customer_phone: phone,
                             order_note: document.getElementById('selectedPlan').textContent,
-                            return_url: window.location.href,
-                            notify_url: 'https://yourdomain.com/api/payment/notify'
                         })
                     });
 
@@ -795,11 +774,9 @@
                 return; 
             }
             
-            // ** THIS IS THE CORRECTED LINE **
             const cashfree = new Cashfree({
-                mode: "production" // <-- ADD THIS LINE BACK
+                mode: "production"
             });
-
             const checkoutOptions = {
                 paymentSessionId: paymentSessionId
             };
