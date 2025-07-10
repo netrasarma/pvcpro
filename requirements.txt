@@ -4,3 +4,4 @@ requests
 gunicorn
 firebase-admin
 pyrebase4
+psutil
