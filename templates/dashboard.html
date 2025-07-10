@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Dashboard - PVC Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Welcome, {{ user.name }}</h1>
+            <a href="/logout" class="px-4 py-2 text-sm text-white bg-red-600 rounded-md hover:bg-red-700">Logout</a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="p-6 bg-white rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">Subscription Status</h2>
+                {% if user.is_activated %}
+                    <p class="text-green-600 font-bold">ACTIVE (Annual Plan)</p>
+                    <p class="mt-2"><strong>Activation Key:</strong> {{ user.activation_key }}</p>
+                    <p class="mt-2"><strong>Expires On:</strong> {{ user.expires_on }}</p>
+                {% else %}
+                    <p class="text-yellow-600 font-bold">TRIAL / PAY-PER-FILE</p>
+                    <p class="mt-2">Purchase an annual plan to get unlimited access and an activation key.</p>
+                {% endif %}
+            </div>
+            <div class="p-6 bg-white rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">File Credits</h2>
+                <p class="text-3xl font-bold text-blue-600">{{ user.credits }}</p>
+                <p class="text-gray-600">credits remaining</p>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <a href="/" class="px-6 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700">Back to Homepage</a>
+        </div>
+    </div>
+</body>
+</html>
