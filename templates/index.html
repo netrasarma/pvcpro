@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PVC Pro - Automatic PVC Card Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        }
+        .document-badge {
+            background-color: #dbeafe;
+            color: #1d4ed8;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .pricing-card {
+            transition: all 0.3s ease;
+        }
+        .pricing-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        .payment-modal {
+            transition: all 0.3s ease;
+        }
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+    </style>
+    </head>
+    <body class="font-sans antialiased text-gray-800">
+        <nav class="bg-white shadow-md sticky top-0 z-50">
+            <div class="container mx-auto px-6 py-3">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://placehold.co/40x40/2563eb/FFFFFF?text=PP" alt="PVC Pro logo" class="h-10 w-10 rounded-lg">
+                        <span class="text-xl font-bold text-gray-800">PVC Pro</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-6">
+                        <a href="#features" class="text-gray-600 hover:text-blue-600 px-3 py-2">Features</a>
+                        <a href="#documents" class="text-gray-600 hover:text-blue-600 px-3 py-2">Documents</a>
+                        <a href="#pricing" class="text-gray-600 hover:text-blue-600 px-3 py-2">Pricing</a>
+                        <a href="#testimonials" class="text-gray-600 hover:text-blue-600 px-3 py-2">Testimonials</a>
+                        <a href="#faq" class="text-gray-600 hover:text-blue-600 px-3 py-2">FAQ</a>
+                    </div>
+                    <button id="mobileMenuButton" class="md:hidden text-gray-600 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="mobileMenu" class="mobile-menu md:hidden bg-white">
+                    <div class="px-2 pt-2 pb-3 space-y-1">
+                        <a href="#features" class="block px-3 py-2 text-gray-600 hover:text-blue-600">Features</a>
+                        <a href="#documents" class="block px-3 py-2 text-gray-600 hover:text-blue-600">Documents</a>
+                        <a href="#pricing" class="block px-3 py-2 text-gray-600 hover:text-blue-600">Pricing</a>
+                        <a href="#testimonials" class="block px-3 py-2 text-gray-600 hover:text-blue-600">Testimonials</a>
+                        <a href="#faq" class="block px-3 py-2 text-gray-600 hover:text-blue-600">FAQ</a>
+                        <a href="#contact" class="block px-3 py-2 text-gray-600 hover:text-blue-600">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+
+    <section class="hero-gradient text-white py-16 md:py-24">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Automatic PVC Card Generator</h1>
+                <p class="text-xl mb-8 leading-relaxed">Convert Aadhar, PAN, Voter ID and other documents to printable PVC card format in seconds with perfect accuracy.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#pricing" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-center shadow-md">Buy Now</a>
+                    <a href="#demo" class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-6 py-3 rounded-lg font-semibold text-center">See Demo</a>
+                    <a href="software-download.zip" download class="bg-blue-600 text-white hover:bg-blue-700 px-6 py-3 rounded-lg font-semibold text-center shadow-md">Download Software</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="preview.png" alt="PVC Pro software interface showing document conversion to PVC card" class="rounded-xl shadow-2xl border-4 border-white max-w-full">
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+                <p class="text-xl text-gray-600">Everything you need for perfect PVC card conversions</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Automatic Formatting</h3>
+                    <p class="text-gray-600">Documents are automatically detected and formatted to perfect PVC card specifications with no manual adjustments needed.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Multi-Format Support</h3>
+                    <p class="text-gray-600">Convert between PDF and JPG formats while maintaining perfect resolution for PVC printing.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Batch Processing</h3>
+                    <p class="text-gray-600">Process multiple documents simultaneously with consistent output quality across all files.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Live Preview</h3>
+                    <p class="text-gray-600">See exactly how your PVC card will look before downloading and printing.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Secure Processing</h3>
+                    <p class="text-gray-600">All processing happens on your device - no documents are uploaded to external servers.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Flexible Pricing</h3>
+                    <p class="text-gray-600">Choose between annual subscription (₹699) or pay-per-use (₹1/file) to match your needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="documents" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Supported Documents</h2>
+                <p class="text-xl text-gray-600">All major government ID cards and documents</p>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="document-badge px-4 py-3 rounded-lg text-center font-medium">AADHAR CARD</div>
+                <div class="document-badge px-4 py-3 rounded-lg text-center font-medium">PAN CARD</div>
+                <div class="document-badge px-4 py-3 rounded-lg text-center font-medium">ABHA CARD</div>
+                <div class="document-badge px-4 py-3 rounded-lg text-center font-medium">VOTER ID</div>
+                <div class="document-badge px-4 py-3 rounded-lg text-center font-medium">AYUSHMAN CARD</div>
+                <div class="document-badge px-4 py-3 rounded-lg text-center font-medium">E-SHRAM CARD</div>
+                <div class="document-badge px-4 py-3 rounded-lg text-center font-medium">DRIVING LICENSE</div>
+                <div class="document-badge px-4 py-3 rounded-lg text-center font-medium">RC</div>
+            </div>
+            
+            <div class="mt-16 flex justify-center">
+                <img src="doc.png" alt="Examples of supported government ID cards" class="rounded-lg shadow-lg border max-w-full">
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+                <p class="text-xl text-gray-600">Simple 3-step process for perfect PVC cards</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <img src="https://placehold.co/600x400/f3f4f6/2563eb?text=Before+%26+After" alt="Before and after image showing document conversion" class="rounded-lg">
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="space-y-8">
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-6">
+                                <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white text-2xl font-bold">1</div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Upload Document</h3>
+                                <p class="text-gray-600">Upload your Aadhar, PAN, Voter ID or other supported document in PDF or JPG format.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-6">
+                                <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white text-2xl font-bold">2</div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Automatic Conversion</h3>
+                                <p class="text-gray-600">Our software detects the document type and converts it to perfect PVC card format automatically.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-6">
+                                <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white text-2xl font-bold">3</div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Download & Print</h3>
+                                <p class="text-gray-600">Download the perfectly formatted PVC file ready for printing on any PVC card printer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 text-center">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-lg font-semibold inline-flex items-center shadow-md">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Watch Demo Video
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple Pricing</h2>
+                <p class="text-xl text-gray-600">Choose the plan that works for you</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="pricing-card bg-white border-2 border-blue-600 rounded-xl p-8 shadow-lg relative">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-bl-lg rounded-tr-lg">MOST POPULAR</div>
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold mb-2">Annual Subscription</h3>
+                        <div class="text-4xl font-bold mb-2">₹699<span class="text-lg font-normal text-gray-500">/year</span></div>
+                        <p class="text-gray-600">Unlimited conversions for 12 months</p>
+                    </div>
+                    <ul class="space-y-3 mb-8 pl-5">
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Unlimited document conversions
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            All supported document types
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            PDF to JPG conversion
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Batch processing
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Priority email support
+                        </li>
+                    </ul>
+                    <button onclick="showPaymentForm('Annual Subscription - ₹699/year', 699)" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold shadow-md">
+                        Get Annual Plan
+                    </button>
+                </div>
+                
+                <div class="pricing-card bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold mb-2">Pay Per File</h3>
+                        <div class="text-4xl font-bold mb-2">₹1<span class="text-lg font-normal text-gray-500">/file</span></div>
+                        <p class="text-gray-600">Pay only when you need it</p>
+                    </div>
+                    <ul class="space-y-3 mb-8 pl-5">
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Pay only for converted files
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            All supported document types
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            PDF to JPG conversion
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Minimum purchase of 10 files
+                        </li>
+                    </ul>
+                    <button onclick="showPaymentForm('Pay Per File - ₹1/file (Min 50 files)', 50)" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-semibold shadow-md">
+                        Pay As You Go (Min 50 files)
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center text-gray-500 mt-8">
+                <p>Both options include all features - choose based on your expected usage</p>
+                <p class="mt-2 text-sm">All prices are in Indian Rupees (₹). Taxes may apply.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Customers Say</h2>
+                <p class="text-xl text-gray-600">Trusted by businesses and individuals across India</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden mr-4">
+                            <img src="https://placehold.co/100x100/e5e7eb/2563eb?text=RK" alt="Rajesh Kumar, Print Shop Owner">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Ranjit Sharma</h4>
+                            <p class="text-gray-600 text-sm">CSC Centre, Tinsukia, Assam</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic mb-4">"Before PVC Pro, we wasted so much time manually formatting ID cards. Now we process 3x more customers with perfect results every time."</p>
+                    <div class="flex text-yellow-400">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden mr-4">
+                            <img src="https://placehold.co/100x100/e5e7eb/2563eb?text=PS" alt="Priya Sharma, Government Office">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Kedar Chetry </h4>
+                            <p class="text-gray-600 text-sm">CSC Centre, Tinsukia, Assam</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic mb-4">"The batch processing feature has saved us countless hours. We can now process hundreds of documents in minutes instead of hours."</p>
+                    <div class="flex text-yellow-400">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden mr-4">
+                            <img src="https://placehold.co/100x100/e5e7eb/2563eb?text=AP" alt="Amit Patel, Cyber Cafe">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Subham Sharma</h4>
+                            <p class="text-gray-600 text-sm">CSC Centre, Tinsukia, ASsam</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic mb-4">"The pay-per-file option is perfect for my business. I only pay when customers need PVC cards, which keeps my costs low."</p>
+                    <div class="flex text-yellow-400">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-600">Common questions about PVC Pro</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition focus:outline-none" aria-expanded="false">
+                        <span class="text-lg font-medium text-left">What documents does PVC Pro support?</span>
+                        <svg class="w-5 h-5 text-gray-500 toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content p-4 border-t border-gray-200">
+                        <p class="text-gray-700">PVC Pro supports all major government ID documents including Aadhar Card, PAN Card, ABHA Card, Voter ID Card, Ayushman Card, E-Shram Card, Driving License, and Registration Certificate. We're constantly adding more document types based on customer needs.</p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition focus:outline-none" aria-expanded="false">
+                        <span class="text-lg font-medium text-left">How does the pay-per-file option work?</span>
+                        <svg class="w-5 h-5 text-gray-500 toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content p-4 border-t border-gray-200">
+                        <p class="text-gray-700">With the pay-per-file option, you purchase credits (minimum 10 files for ₹10). Each time you convert a document, one credit is deducted from your account. Credits never expire, so you can use them whenever you need.</p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition focus:outline-none" aria-expanded="false">
+                        <span class="text-lg font-medium text-left">Is my document data secure?</span>
+                        <svg class="w-5 h-5 text-gray-500 toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content p-4 border-t border-gray-200">
+                        <p class="text-gray-700">Absolutely. All processing happens locally on your computer - no documents are ever uploaded to our servers. Your sensitive information stays completely private.</p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition focus:outline-none" aria-expanded="false">
+                        <span class="text-lg font-medium text-left">Can I get a refund if I'm not satisfied?</span>
+                        <svg class="w-5 h-5 text-gray-500 toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content p-4 border-t border-gray-200">
+                        <p class="text-gray-700">We offer a 7-day money back guarantee on annual subscriptions if you're not completely satisfied. For pay-per-file credits, refunds are available for unused credits within 30 days of purchase.</p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition focus:outline-none" aria-expanded="false">
+                        <span class="text-lg font-medium text-left">What payment methods do you accept?</span>
+                        <svg class="w-5 h-5 text-gray-500 toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content p-4 border-t border-gray-200">
+                        <p class="text-gray-700">We accept all major credit/debit cards, UPI payments, and net banking through our secure payment gateway.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Us</h2>
+                <p class="text-xl text-gray-600">Have questions? Get in touch with our team</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row max-w-6xl mx-auto">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 text-blue-600 mt-1">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-lg">Phone</h4>
+                                    <p class="text-gray-600">+91 8638149032</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 text-blue-600 mt-1">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-lg">Email</h4>
+                                    <p class="text-gray-600">officialnetrasarma@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 text-blue-600 mt-1">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-lg">Business Hours</h4>
+                                    <p class="text-gray-600">Monday to Saturday: 9:00 AM to 6:00 PM</p>
+                                    <p class="text-gray-600">Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-semibold mb-6">Send Us a Message</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-gray-700 mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-gray-700 mb-2">Your Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold shadow-md">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden payment-modal">
+        <div class="bg-white rounded-lg max-w-md w-full mx-4 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold">Complete Your Purchase</h3>
+                <button onclick="hidePaymentForm()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <p class="mb-4">You're purchasing: <span id="selectedPlan" class="font-semibold">Annual Subscription - ₹699/year</span></p>
+            <p class="mb-6">Total: ₹<span id="planPrice">699</span></p>
+            
+            <form id="payment-form">
+                <div class="mb-4">
+                    <label for="payment-name" class="block text-gray-700 mb-2">Full Name</label>
+                    <input type="text" id="payment-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your full name" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="payment-email" class="block text-gray-700 mb-2">Email</label>
+                    <input type="email" id="payment-email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="your@email.com" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="payment-phone" class="block text-gray-700 mb-2">Phone Number</label>
+                    <input type="tel" id="payment-phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your phone number" required>
+                </div>
+
+                <button id="cf-pay-button" type="button" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center">
+                    <span id="button-text">Pay ₹<span id="payment-amount">699</span></span>
+                </button>
+            </form>
+            
+            <p class="text-xs text-gray-500 mt-4">Your payment is secure and encrypted. By purchasing, you agree to our <a href="#" class="text-blue-500 hover:underline">Terms</a> and <a href="#" class="text-blue-500 hover:underline">Privacy Policy</a>.</p>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="https://placehold.co/40x40/2563eb/FFFFFF?text=PP" alt="PVC Pro logo" class="h-10 w-10 rounded-lg">
+                        <span class="text-xl font-bold">PVC Pro</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Automatic PVC card file generator for all major government ID documents.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-300 hover:text-white">Features</a></li>
+                        <li><a href="#documents" class="text-gray-300 hover:text-white">Supported Documents</a></li>
+                        <li><a href="#pricing" class="text-gray-300 hover:text-white">Pricing</a></li>
+                        <li><a href="#testimonials" class="text-gray-300 hover:text-white">Testimonials</a></li>
+                        <li><a href="#faq" class="text-gray-300 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="terms.html" class="text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="privacy.html" class="text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="refund.html" class="text-gray-300 hover:text-white">Refund Policy</a></li>
+                        <li><a href="cookie.html" class="text-gray-300 hover:text-white">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-gray-300 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            <span class="text-gray-300">+91 8638149032</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-gray-300 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="text-gray-300">officialnetrasarma@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-gray-300 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-gray-300">India</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 PVC Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // FAQ accordion
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                
+                toggle.setAttribute('aria-expanded', !isExpanded);
+                content.style.maxHeight = !isExpanded ? content.scrollHeight + 'px' : '0px';
+                
+                const icon = toggle.querySelector('.toggle-icon');
+                icon.style.transform = !isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+            });
+        });
+
+        // Payment form handling
+        function showPaymentForm(planName, amount) {
+            document.getElementById('selectedPlan').textContent = planName;
+            document.getElementById('planPrice').textContent = amount;
+            document.getElementById('payment-amount').textContent = amount;
+            document.getElementById('paymentModal').classList.remove('hidden');
+        }
+
+        function hidePaymentForm() {
+            document.getElementById('paymentModal').classList.add('hidden');
+        }
+
+        // Cashfree payment integration
+        document.getElementById('cf-pay-button').addEventListener('click', async function () {
+            const name = document.getElementById('payment-name').value.trim();
+            const email = document.getElementById('payment-email').value.trim();
+            const phone = document.getElementById('payment-phone').value.trim();
+
+            if (!name || !email || !phone) {
+                alert('Please enter your full name, email, and phone number.');
+                return;
+            }
+
+            const amount = parseFloat(document.getElementById('planPrice').textContent);
+
+            async function fetchPaymentSessionId() {
+                try {
+                    const backendUrl = 'https://backend-251977653326.asia-south1.run.app/create_order'; 
+                    
+                    const response = await fetch(backendUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            order_amount: amount,
+                            customer_id: 'customer_' + Math.random().toString(36).substr(2, 9),
+                            customer_name: name,
+                            customer_email: email,
+                            customer_phone: phone,
+                            order_note: document.getElementById('selectedPlan').textContent,
+                            return_url: window.location.href,
+                            notify_url: 'https://yourdomain.com/api/payment/notify'
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        const errorDetails = data.details ? JSON.stringify(data.details) : 'No details available.';
+                        throw new Error(`Failed to create order. ${errorDetails}`);
+                    }
+                    
+                    return data.paymentSessionId;
+
+                } catch (error) {
+                    console.error('Error fetching payment session ID:', error);
+                    alert(`Could not initiate payment. Please check console for details.`);
+                    return null;
+                }
+            }
+
+            const paymentSessionId = await fetchPaymentSessionId();
+
+            if (!paymentSessionId) {
+                return; 
+            }
+            
+            // ** THIS IS THE CORRECTED LINE **
+            const cashfree = new Cashfree();
+
+            const checkoutOptions = {
+                paymentSessionId: paymentSessionId
+            };
+            cashfree.checkout(checkoutOptions).then((result) => {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+                if (result.redirect) {
+                    console.log("Redirecting for payment");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
