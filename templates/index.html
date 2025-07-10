@@ -58,11 +58,16 @@
                         <span class="text-xl font-bold text-gray-800">PVC Pro</span>
                     </div>
                     <div class="hidden md:flex items-center space-x-6">
-                        <a href="#features" class="text-gray-600 hover:text-blue-600 px-3 py-2">Features</a>
-                        <a href="#documents" class="text-gray-600 hover:text-blue-600 px-3 py-2">Documents</a>
-                        <a href="#pricing" class="text-gray-600 hover:text-blue-600 px-3 py-2">Pricing</a>
-                        <a href="#testimonials" class="text-gray-600 hover:text-blue-600 px-3 py-2">Testimonials</a>
-                        <a href="#faq" class="text-gray-600 hover:text-blue-600 px-3 py-2">FAQ</a>
+                        <a href="/#features" class="text-gray-600 hover:text-blue-600 px-3 py-2">Features</a>
+                        <a href="/#pricing" class="text-gray-600 hover:text-blue-600 px-3 py-2">Pricing</a>
+                        
+                        {% if session['user'] %}
+                            <a href="/dashboard" class="font-bold text-blue-600 hover:text-blue-800 px-3 py-2">Dashboard</a>
+                            <a href="/logout" class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md">Logout</a>
+                        {% else %}
+                            <a href="/login" class="text-gray-600 hover:text-blue-600 px-3 py-2">Login</a>
+                            <a href="/register" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md">Register</a>
+                        {% endif %}
                     </div>
                     <button id="mobileMenuButton" class="md:hidden text-gray-600 focus:outline-none">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
