@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for
 from firebase_config import firebase  # Import your firebase manager
 import firebase_admin
+from firebase_admin import firestore # <-- 1. IMPORT FIREBASE ADMIN AND FIRESTORE
 import hmac
 import hashlib
 import os
@@ -13,11 +14,12 @@ logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 # IMPORTANT: Set a secret key for session management.
-# You MUST change this to a long, random string for security.
 app.secret_key = 'pvc-pro-a-very-secret-and-random-key-12345'
 
 # --- Environment Variables ---
-# You must set this in your Cloud Run service settings
+# These are loaded from your Cloud Run service settings
+CASHFREE_APP_ID = os.getenv("CASHFREE_APP_ID")
+CASHFREE_SECRET_KEY = os.getenv("CASHFREE_SECRET_KEY")
 CASHFREE_WEBHOOK_SECRET = os.getenv("CASHFREE_WEBHOOK_SECRET")
 
 # --- Main Routes (Pages) ---
@@ -34,21 +36,16 @@ def login():
         email = request.form['email']
         password = request.form['password']
         try:
-            # Use your FirebaseManager to sign in the user
             user = firebase.auth.sign_in_with_email_and_password(email, password)
-            
-            # Get user profile from Firestore
             user_profile_doc = firebase.db.collection('users').document(user['localId']).get()
             if user_profile_doc.exists:
                 user_data = user_profile_doc.to_dict()
-                session['user'] = user_data  # Store user data in the session
+                session['user'] = user_data
                 return redirect(url_for('dashboard'))
             else:
                 return render_template('login.html', error="User profile not found.")
-                
-        except Exception as e:
+        except Exception:
             return render_template('login.html', error="Invalid email or password.")
-            
     return render_template('login.html')
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -59,12 +56,8 @@ def register():
         password = request.form['password']
         name = request.form['name']
         mobile = request.form['mobile']
-        
         try:
-            # Use Firebase Admin to create the auth user
             user = firebase_admin.auth.create_user(email=email, password=password, display_name=name)
-            
-            # Create the user profile in Firestore
             user_data = {
                 "uid": user.uid,
                 "email": email,
@@ -76,27 +69,23 @@ def register():
                 "registered_on": firestore.SERVER_TIMESTAMP
             }
             firebase.db.collection('users').document(user.uid).set(user_data)
-            
-            # Redirect to login page after successful registration
             return redirect(url_for('login'))
-            
         except Exception as e:
-            return render_template('register.html', error=f"Registration failed: {e}")
-
+            error_message = str(e)
+            if 'EMAIL_EXISTS' in error_message:
+                return render_template('register.html', error="This email address is already in use.")
+            return render_template('register.html', error="Registration failed.")
     return render_template('register.html')
 
 @app.route("/dashboard")
 def dashboard():
-    """Displays the user's dashboard if they are logged in."""
+    """Displays the user's dashboard."""
     if 'user' in session:
-        # Refresh user data from Firestore to get the latest info
         user_id = session['user']['uid']
         user_profile_doc = firebase.db.collection('users').document(user_id).get()
         if user_profile_doc.exists:
             session['user'] = user_profile_doc.to_dict()
             return render_template('dashboard.html', user=session['user'])
-    
-    # If user is not in session, redirect to login
     return redirect(url_for('login'))
 
 @app.route("/logout")
@@ -109,12 +98,21 @@ def logout():
 
 @app.route("/create_order", methods=["POST"])
 def create_order():
-    """API endpoint to create a payment order with Cashfree."""
+    """API endpoint to create a payment order."""
     if 'user' not in session:
         return jsonify({"error": "User not logged in"}), 401
 
     data = request.json
     user_id = session['user']['uid']
+    
+    # <-- 2. DEFINE CASHFREE VARIABLES LOCALLY
+    CASHFREE_URL = "https://api.cashfree.com/pg/orders"
+    HEADERS = {
+        "Content-Type": "application/json",
+        "x-api-version": "2022-09-01",
+        "x-client-id": CASHFREE_APP_ID,
+        "x-client-secret": CASHFREE_SECRET_KEY
+    }
     
     order_id = "ORDER_" + str(uuid.uuid4()).replace("-", "")[:12]
     
@@ -126,7 +124,7 @@ def create_order():
         "customer_details": {
             "customer_id": user_id,
             "customer_email": session['user']['email'],
-            "customer_phone": session['user']['mobile'],
+            "customer_phone": session['user'].get('mobile', ''),
             "customer_name": session['user']['name']
         },
         "order_meta": {
@@ -138,7 +136,7 @@ def create_order():
     }
 
     try:
-        response = requests.post(firebase.CASHFREE_URL, headers=firebase.HEADERS, json=order_data)
+        response = requests.post(CASHFREE_URL, headers=HEADERS, json=order_data)
         response.raise_for_status()
         result = response.json()
         return jsonify({"paymentSessionId": result.get("payment_session_id")})
@@ -151,11 +149,7 @@ def cashfree_webhook():
     """Handles incoming webhooks from Cashfree."""
     app.logger.info("--- Webhook Received ---")
     try:
-        # Log details for debugging
-        app.logger.info(f"Headers: {request.headers}")
         raw_body = request.get_data()
-        app.logger.info(f"Raw Body: {raw_body}")
-
         received_signature = request.headers.get('x-webhook-signature')
         timestamp = request.headers.get('x-webhook-timestamp')
 
@@ -163,7 +157,6 @@ def cashfree_webhook():
             app.logger.error("Webhook missing headers or server-side secret key.")
             return jsonify({"error": "Configuration error"}), 400
 
-        # Verify the signature
         payload = f"{timestamp}{raw_body.decode('utf-8')}"
         computed_signature = hmac.new(key=CASHFREE_WEBHOOK_SECRET.encode('utf-8'), msg=payload.encode('utf-8'), digestmod=hashlib.sha256).hexdigest()
 
@@ -173,7 +166,6 @@ def cashfree_webhook():
         
         app.logger.info("Webhook signature verified successfully!")
         
-        # Process the data
         webhook_data = request.get_json()
         order_data = webhook_data.get('data', {}).get('order', {})
         payment_status = order_data.get('order_status')
