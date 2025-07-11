@@ -286,6 +286,30 @@
                             <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                             Unlimited document conversions
                         </li>
+                         <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            All supported document types
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            PDF to JPG conversion
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Batch processing
+                        </li>
+                        <li class="flex items-baseline">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Priority email support
+                        </li>
                     </ul>
                     <button onclick="initiatePurchase('Annual Subscription - ₹699/year', 699)" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold shadow-md mt-auto">
                         Get Annual Plan
@@ -312,6 +336,11 @@
                         </button>
                     </div>
                 </div>
+            </div>
+            
+            <div class="text-center text-gray-500 mt-8">
+                <p>Both options include all features - choose based on your expected usage</p>
+                <p class="mt-2 text-sm">All prices are in Indian Rupees (₹). Taxes may apply.</p>
             </div>
         </div>
     </section>
@@ -740,17 +769,8 @@
     
         // Cashfree payment integration
         document.getElementById('cf-pay-button').addEventListener('click', async function () {
-            const name = document.getElementById('payment-name').value.trim();
-            const email = document.getElementById('payment-email').value.trim();
-            const phone = document.getElementById('payment-phone').value.trim();
-    
-            if (!name || !email || !phone) {
-                alert('Please enter your full name, email, and phone number.');
-                return;
-            }
-    
             const amount = parseFloat(document.getElementById('planPrice').textContent);
-    
+            
             async function fetchPaymentSessionId() {
                 try {
                     const backendUrl = '/create_order'; 
