@@ -59,9 +59,12 @@
                     </div>
                     <div class="hidden md:flex items-center space-x-6">
                         <a href="/#features" class="text-gray-600 hover:text-blue-600 px-3 py-2">Features</a>
+                        <a href="/#documents" class="text-gray-600 hover:text-blue-600 px-3 py-2">Documents</a>
                         <a href="/#pricing" class="text-gray-600 hover:text-blue-600 px-3 py-2">Pricing</a>
+                        <a href="/#testimonials" class="text-gray-600 hover:text-blue-600 px-3 py-2">Testimonials</a>
+                        <a href="/#faq" class="text-gray-600 hover:text-blue-600 px-3 py-2">FAQ</a>
                         
-                        {% if session['user'] %}
+                        {% if session.get('user') %}
                             <a href="/dashboard" class="font-bold text-blue-600 hover:text-blue-800 px-3 py-2">Dashboard</a>
                             <a href="/logout" class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md">Logout</a>
                         {% else %}
@@ -280,19 +283,11 @@
                     </div>
                     <ul class="space-y-3 mb-8 pl-5 flex-grow">
                         <li class="flex items-baseline">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                             Unlimited document conversions
                         </li>
-                        <li class="flex items-baseline">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            All supported document types
-                        </li>
                     </ul>
-                    <button onclick="showPaymentForm('Annual Subscription - ₹699/year', 699)" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold shadow-md mt-auto">
+                    <button onclick="initiatePurchase('Annual Subscription - ₹699/year', 699)" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold shadow-md mt-auto">
                         Get Annual Plan
                     </button>
                 </div>
@@ -305,16 +300,14 @@
                     </div>
                     <ul class="space-y-3 mb-8 pl-5 flex-grow">
                         <li class="flex items-baseline">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                             Pay only for converted files
                         </li>
                     </ul>
                     <div class="mt-auto">
                         <label for="file-quantity" class="block text-sm font-medium text-gray-700 mb-2">Number of Files (Min 1):</label>
                         <input type="number" id="file-quantity" value="1" min="1" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
-                        <button onclick="handlePayPerFile()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-semibold shadow-md">
+                        <button onclick="initiatePurchase('Pay Per File', -1)" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-semibold shadow-md">
                             Buy Credits
                         </button>
                     </div>
@@ -674,15 +667,16 @@
     </footer>
 
     <script>
+        const userLoggedIn = {{ 'true' if session.get('user') else 'false' }};
+    
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const mobileMenu = document.getElementById('mobileMenu');
-        
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('open');
         });
-
-        // FAQ accordion
+    
+        // FAQ accordion toggle
         const faqToggles = document.querySelectorAll('.faq-toggle');
         faqToggles.forEach(toggle => {
             toggle.addEventListener('click', () => {
@@ -696,85 +690,93 @@
                 icon.style.transform = !isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
             });
         });
-
+    
         // Payment form handling
         function showPaymentForm(planName, amount) {
             document.getElementById('selectedPlan').textContent = planName;
             document.getElementById('planPrice').textContent = amount;
             document.getElementById('payment-amount').textContent = amount;
+    
+            // Pre-fill user details if logged in
+            {% if session.get('user') %}
+                document.getElementById('payment-name').value = "{{ session['user'].get('name', '') }}";
+                document.getElementById('payment-email').value = "{{ session['user'].get('email', '') }}";
+                document.getElementById('payment-phone').value = "{{ session['user'].get('mobile', '') }}";
+            {% endif %}
+    
             document.getElementById('paymentModal').classList.remove('hidden');
         }
-
+    
         function hidePaymentForm() {
             document.getElementById('paymentModal').classList.add('hidden');
         }
-
-        function handlePayPerFile() {
-          const quantityInput = document.getElementById('file-quantity');
-          const quantity = parseInt(quantityInput.value, 10);
-          const pricePerFile = 1;
-          const minQuantity = 1;
-
-          if (isNaN(quantity) || quantity < minQuantity) {
-            alert('Minimum purchase is ' + minQuantity + ' file.');
-            quantityInput.value = minQuantity;
-            return;
-          }
-
-          const totalAmount = quantity * pricePerFile;
-          const planName = quantity + ' File Credits at ₹' + pricePerFile + '/file';
-
-          showPaymentForm(planName, totalAmount);
+    
+        function initiatePurchase(planName, amount) {
+            if (!userLoggedIn) {
+                alert("Please log in or register to make a purchase.");
+                window.location.href = '/login';
+                return;
+            }
+    
+            if (amount === -1) {
+                const quantityInput = document.getElementById('file-quantity');
+                const quantity = parseInt(quantityInput.value, 10);
+                const pricePerFile = 1;
+                const minQuantity = 1;
+    
+                if (isNaN(quantity) || quantity < minQuantity) {
+                    alert('Minimum purchase is ' + minQuantity + ' file.');
+                    quantityInput.value = minQuantity;
+                    return;
+                }
+                
+                const totalAmount = quantity * pricePerFile;
+                const dynamicPlanName = quantity + ' File Credits at ₹' + pricePerFile + '/file';
+                showPaymentForm(dynamicPlanName, totalAmount);
+            } else {
+                showPaymentForm(planName, amount);
+            }
         }
-
+    
         // Cashfree payment integration
         document.getElementById('cf-pay-button').addEventListener('click', async function () {
             const name = document.getElementById('payment-name').value.trim();
             const email = document.getElementById('payment-email').value.trim();
             const phone = document.getElementById('payment-phone').value.trim();
-
+    
             if (!name || !email || !phone) {
                 alert('Please enter your full name, email, and phone number.');
                 return;
             }
-
+    
             const amount = parseFloat(document.getElementById('planPrice').textContent);
-
+    
             async function fetchPaymentSessionId() {
                 try {
                     const backendUrl = '/create_order'; 
-                    
                     const response = await fetch(backendUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             order_amount: amount,
-                            customer_id: 'customer_' + Math.random().toString(36).substr(2, 9),
-                            customer_name: name,
-                            customer_email: email,
-                            customer_phone: phone,
-                            order_note: document.getElementById('selectedPlan').textContent,
+                            order_note: document.getElementById('selectedPlan').textContent
                         })
                     });
-
+    
                     const data = await response.json();
-
                     if (!response.ok) {
-                        const errorDetails = data.details ? JSON.stringify(data.details) : 'No details available.';
-                        throw new Error(`Failed to create order. ${errorDetails}`);
+                        throw new Error(data.error || 'Server error');
                     }
-                    
                     return data.paymentSessionId;
-
                 } catch (error) {
                     console.error('Error fetching payment session ID:', error);
-                    alert(`Could not initiate payment. Please check console for details.`);
+                    alert(`Could not initiate payment. ${error.message}`);
                     return null;
                 }
             }
-
+    
             const paymentSessionId = await fetchPaymentSessionId();
-
+    
             if (!paymentSessionId) {
                 return; 
             }
@@ -788,9 +790,6 @@
             cashfree.checkout(checkoutOptions).then((result) => {
                 if (result.error) {
                     alert(result.error.message);
-                }
-                if (result.redirect) {
-                    console.log("Redirecting for payment");
                 }
             });
         });
