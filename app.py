@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for
 from firebase_config import firebase  # Import your firebase manager
+import firebase_admin
 import hmac
 import hashlib
 import os
